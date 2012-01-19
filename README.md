@@ -1,47 +1,33 @@
-# OmniAuth Twitter
+# OmniAuth Manybots
 
-This gem contains the Twitter strategy for OmniAuth.
+This gem contains the Manybots strategy for OmniAuth.
 
-Twitter uses the OAuth 1.0a flow, you can read about it here: https://dev.twitter.com/docs/auth/oauth
+Manybots uses the OAuth 1.0a flow, you can read about it here: http://www.manybots.com/developers
 
 ## How To Use It
 
-Usage is as per any other OmniAuth 1.0 strategy. So let's say you're using Rails, you need to add the strategy to your `Gemfile`:
+Like other OmniAuth 1.0 strategies. If you are using Rails, you need to add this to your `Gemfile`:
 
-    gem 'omniauth-twitter'
+  gem "omniauth", ">= 1.0.0"
+  gem 'omniauth-manybots', :git => 'https://github.com/NikoRoberts/omniauth-manybots.git'
 
-You can pull them in directly from github e.g.:
+Then add the following to your `config/initializers/omniauth.rb` (or just the provider line if you have others already):
 
-    gem 'omniauth-twitter', :git => 'https://github.com/arunagw/omniauth-twitter.git'
+  Rails.application.config.middleware.use OmniAuth::Builder do
+    provider :manybots, "consumer_key", "consumer_secret" 
+  end
 
-Once these are in, you need to add the following to your `config/initializers/omniauth.rb`:
-
-    Rails.application.config.middleware.use OmniAuth::Builder do
-      provider :twitter, "consumer_key", "consumer_secret" 
-    end
-
-You will obviously have to put in your key and secret, which you get when you register your app with Twitter (they call them API Key and Secret Key). 
+REMEMBER to replace with your real key and secret, which you get when you register your app with Manybots 
 
 Now just follow the README at: https://github.com/intridea/omniauth
 
 ## Supported Rubies
 
-OmniAuth Twitter is tested under 1.8.7, 1.9.2, 1.9.3 and Ruby Enterprise Edition.
-
-[![CI Build
-Status](https://secure.travis-ci.org/arunagw/omniauth-twitter.png)](http://travis-ci.org/arunagw/omniauth-twitter)
-
-## Note on Patches/Pull Requests
-
-- Fork the project.
-- Make your feature addition or bug fix.
-- Add tests for it. This is important so I don’t break it in a future version unintentionally.
-- Commit, do not mess with rakefile, version, or history. (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
-- Send me a pull request. Bonus points for topic branches.
+OmniAuth Manybots is tested under 1.9.2
 
 ## License
 
-Copyright (c) 2011 by Arun Agrawal
+Copyright (c) 2012 by Nicholas Roberts
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 

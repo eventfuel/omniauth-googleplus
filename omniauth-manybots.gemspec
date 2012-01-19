@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version     = Omniauth::Manybots::VERSION
   s.authors     = ["Niko Roberts"]
   s.email       = ["niko@manybots.com"]
-  s.homepage    = "https://github.com/NikoRoberts/omniauth-Manybots"
+  s.homepage    = "https://github.com/NikoRoberts/omniauth-manybots"
   s.summary     = %q{OmniAuth strategy for Manybots}
   s.description = %q{OmniAuth strategy for Manybots}
 

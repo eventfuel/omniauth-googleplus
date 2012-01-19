@@ -8,14 +8,14 @@ Manybots uses the OAuth 1.0a flow, you can read about it here: http://www.manybo
 
 Like other OmniAuth 1.0 strategies. If you are using Rails, you need to add this to your `Gemfile`:
 
-  gem "omniauth", ">= 1.0.0"
-  gem 'omniauth-manybots', :git => 'https://github.com/NikoRoberts/omniauth-manybots.git'
+	gem "omniauth", ">= 1.0.0"
+	gem 'omniauth-manybots', :git => 'https://github.com/NikoRoberts/omniauth-manybots.git'
 
 Then add the following to your `config/initializers/omniauth.rb` (or just the provider line if you have others already):
 
-  Rails.application.config.middleware.use OmniAuth::Builder do
-    provider :manybots, "consumer_key", "consumer_secret" 
-  end
+	Rails.application.config.middleware.use OmniAuth::Builder do
+		provider :manybots, "consumer_key", "consumer_secret" 
+	end
 
 REMEMBER to replace with your real key and secret, which you get when you register your app with Manybots 
 

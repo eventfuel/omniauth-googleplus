@@ -10,19 +10,19 @@ module OmniAuth
                                :request_token_path => '/oauth/request_token',
                                :site => 'https://www.manybots.com'}
 
-      uid { user_data['id'] }
+      uid { raw_info['id'] }
 
       info do
         {
-          :name => user_data['name'],
-          :email => user_data['email'],
-          :id => user_data['id'],
-          :avatar_url => user_data['avatar_url']
+          :name => raw_info['name'],
+          :email => raw_info['email'],
+          :id => raw_info['id'],
+          :avatar_url => raw_info['avatar_url']
         }
       end
 
       extra do
-        { :user_data => user_data }
+        { :raw_info => raw_info }
       end
 
       def user_data

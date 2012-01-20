@@ -22,10 +22,10 @@ module OmniAuth
       end
 
       extra do
-        { :raw_info => raw_info }
+        { 'raw_info' => raw_info }
       end
 
-      def user_data
+      def raw_info
         @data ||= MultiJson.decode(access_token.get('/me.json').body)['user']
       rescue ::Errno::ETIMEDOUT
         raise ::Timeout::Error

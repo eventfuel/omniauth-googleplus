@@ -1,33 +1,33 @@
-# OmniAuth Manybots
+# OmniAuth Google+
 
-This gem contains the Manybots strategy for OmniAuth.
+This gem contains the Google+ strategy for OmniAuth.
 
-Manybots uses the OAuth 1.0a flow, you can read about it here: http://www.manybots.com/developers
+Google+ uses the OAuth 2 flow, you can read about it here: https://developers.google.com/+/web/signin/
 
 ## How To Use It
 
 Like other OmniAuth 1.0 strategies. If you are using Rails, you need to add this to your `Gemfile`:
 
 	gem "omniauth", ">= 1.0.0"
-	gem 'omniauth-manybots', :git => 'https://github.com/NikoRoberts/omniauth-manybots.git'
+	gem 'omniauth-googleplus', :git => 'https://github.com/tasboa/omniauth-googleplus.git'
 
 Then add the following to your `config/initializers/omniauth.rb` (or just the provider line if you have others already):
 
 	Rails.application.config.middleware.use OmniAuth::Builder do
-		provider :manybots, "consumer_key", "consumer_secret" 
+		provider :googleplus, "consumer_key", "consumer_secret" 
 	end
 
-REMEMBER to replace with your real key and secret, which you get when you register your app with Manybots 
+REMEMBER to replace with your real key and secret, which you get when you register your app with Google+
 
 Now just follow the README at: https://github.com/intridea/omniauth
 
 ## Supported Rubies
 
-OmniAuth Manybots is tested under 1.9.2
+OmniAuth Google+ is tested under 1.9.3
 
 ## License
 
-Copyright (c) 2012 by Nicholas Roberts
+Copyright (c) 2013 by Nicholas Roberts
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 

@@ -1,5 +1,5 @@
 module Omniauth
-  module GooglePlus
-    VERSION = "0.0.1"
+  module Googleplus
+    VERSION = "0.0.2"
   end
 end

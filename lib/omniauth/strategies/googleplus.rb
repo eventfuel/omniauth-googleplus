@@ -2,27 +2,25 @@ require 'omniauth/strategies/oauth2'
 require 'base64'
 require 'openssl'
 require 'rack/utils'
+require 'net/https'
 
 module OmniAuth
   module Strategies
-    class GooglePlus < OmniAuth::Strategies::OAuth2
+    class Googleplus < OmniAuth::Strategies::OAuth2
       class NoAuthorizationCodeError < StandardError; end
+      
+      # Scopes: plus.login plus.me userinfo.email
+      #   from https://developers.google.com/+/api/oauth
+      DEFAULT_SCOPE = "plus.login"
       
       option :name, 'googleplus'
       option :authorize_options, [:scope, :approval_prompt, :access_type, :state, :hd]
-      
+
       option :client_options, {
         :site          => 'https://accounts.google.com',
         :authorize_url => '/o/oauth2/auth',
         :token_url     => '/o/oauth2/token'
       }
-      
-      #https://accounts.google.com/o/oauth2/auth?
-      #scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&
-      #state=%2Fprofile&
-      #redirect_uri=https%3A%2F%2Foauth2-login-demo.appspot.com%2Foauthcallback&
-      #response_type=token&
-      #client_id=812741506391.apps.googleusercontent.com
 
       def authorize_params
         base_scope_url = "https://www.googleapis.com/auth/"

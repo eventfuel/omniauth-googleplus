@@ -1,35 +1,86 @@
-require 'omniauth-oauth'
-require 'multi_json'
+require 'omniauth/strategies/oauth2'
+require 'base64'
+require 'openssl'
+require 'rack/utils'
 
 module OmniAuth
   module Strategies
-    class GooglePlus < OmniAuth::Strategies::OAuth
+    class GooglePlus < OmniAuth::Strategies::OAuth2
+      class NoAuthorizationCodeError < StandardError; end
+      
       option :name, 'googleplus'
-      option :client_options, {:authorize_path => '/oauth/authorize',
-                               :access_token_path => '/oauth/access_token',
-                               :request_token_path => '/oauth/request_token',
-                               :site => 'https://plus.google.com'}
+      option :authorize_options, [:scope, :approval_prompt, :access_type, :state, :hd]
+      
+      option :client_options, {
+        :site          => 'https://accounts.google.com',
+        :authorize_url => '/o/oauth2/auth',
+        :token_url     => '/o/oauth2/token'
+      }
+      
+      #https://accounts.google.com/o/oauth2/auth?
+      #scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile&
+      #state=%2Fprofile&
+      #redirect_uri=https%3A%2F%2Foauth2-login-demo.appspot.com%2Foauthcallback&
+      #response_type=token&
+      #client_id=812741506391.apps.googleusercontent.com
 
-      uid { raw_info['id'] }
+      def authorize_params
+        base_scope_url = "https://www.googleapis.com/auth/"
+        super.tap do |params|
+          # Read the params if passed directly to omniauth_authorize_path
+          %w(scope approval_prompt access_type state hd).each do |k|
+            params[k.to_sym] = request.params[k] unless [nil, ''].include?(request.params[k])
+          end
+          scopes = (params[:scope] || DEFAULT_SCOPE).split(",")
+          scopes.map! { |s| s =~ /^https?:\/\// ? s : "#{base_scope_url}#{s}" }
+          params[:scope] = scopes.join(' ')
+          # This makes sure we get a refresh_token.
+          # http://googlecode.blogspot.com/2011/10/upcoming-changes-to-oauth-20-endpoint.html
+          params[:access_type] = 'offline' if params[:access_type].nil?
+          params[:approval_prompt] = 'force' if params[:approval_prompt].nil?
+          # Override the state per request
+          session['omniauth.state'] = params[:state] if request.params['state']
+        end
+      end
+      
+      uid{ raw_info['id'] || verified_email }
 
       info do
-        {
-          :name => raw_info['name'],
-          :email => raw_info['email'],
-          :id => raw_info['id'],
-          :image => raw_info['avatar_url']
-        }
+        prune!({
+          :name       => raw_info['name'],
+          :email      => verified_email,
+          :first_name => raw_info['given_name'],
+          :last_name  => raw_info['family_name'],
+          :image      => raw_info['picture'],
+          :urls => {
+            'Google' => raw_info['link']
+          }
+        })
       end
 
       extra do
-        { 'raw_info' => raw_info }
+        hash = {}
+        hash[:raw_info] = raw_info unless skip_info?
+        prune! hash
       end
 
       def raw_info
-        @data ||= MultiJson.decode(access_token.get('/me.json').body)['user']
-      rescue ::Errno::ETIMEDOUT
-        raise ::Timeout::Error
+        @raw_info ||= access_token.get('https://www.googleapis.com/oauth2/v1/userinfo').parsed
       end
+
+      private
+
+      def prune!(hash)
+        hash.delete_if do |_, value|
+          prune!(value) if value.is_a?(Hash)
+          value.nil? || (value.respond_to?(:empty?) && value.empty?)
+        end
+      end
+
+      def verified_email
+        raw_info['verified_email'] ? raw_info['email'] : nil
+      end
+      
     end
   end
 end

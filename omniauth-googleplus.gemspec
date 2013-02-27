@@ -4,7 +4,7 @@ require "omniauth-googleplus/version"
 
 Gem::Specification.new do |s|
   s.name        = "omniauth-googleplus"
-  s.version     = Omniauth::Manybots::VERSION
+  s.version     = Omniauth::GooglePlus::VERSION
   s.authors     = ["Niko Roberts"]
   s.email       = ["niko@tasboa.com"]
   s.homepage    = "https://github.com/tasboa/omniauth-googleplus"

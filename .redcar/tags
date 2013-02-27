@@ -1,0 +1,8 @@
+1361960697
+GooglePlus	/Users/niko/Documents/prod_servers/omniauth-googleplus/lib/omniauth-googleplus/version.rb	  module GooglePlus
+GooglePlus	/Users/niko/Documents/prod_servers/omniauth-googleplus/lib/omniauth/strategies/googleplus.rb	    class GooglePlus 
+OmniAuth	/Users/niko/Documents/prod_servers/omniauth-googleplus/lib/omniauth/strategies/googleplus.rb	module OmniAuth
+Omniauth	/Users/niko/Documents/prod_servers/omniauth-googleplus/lib/omniauth-googleplus/version.rb	module Omniauth
+Strategies	/Users/niko/Documents/prod_servers/omniauth-googleplus/lib/omniauth/strategies/googleplus.rb	  module Strategies
+VERSION	/Users/niko/Documents/prod_servers/omniauth-googleplus/lib/omniauth-googleplus/version.rb	    VERSION =
+raw_info	/Users/niko/Documents/prod_servers/omniauth-googleplus/lib/omniauth/strategies/googleplus.rb	      def raw_info

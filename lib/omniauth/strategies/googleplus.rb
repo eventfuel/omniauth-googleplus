@@ -3,12 +3,12 @@ require 'multi_json'
 
 module OmniAuth
   module Strategies
-    class Manybots < OmniAuth::Strategies::OAuth
-      option :name, 'manybots'
+    class GooglePlus < OmniAuth::Strategies::OAuth
+      option :name, 'googleplus'
       option :client_options, {:authorize_path => '/oauth/authorize',
                                :access_token_path => '/oauth/access_token',
                                :request_token_path => '/oauth/request_token',
-                               :site => 'https://www.manybots.com'}
+                               :site => 'https://plus.google.com'}
 
       uid { raw_info['id'] }
 

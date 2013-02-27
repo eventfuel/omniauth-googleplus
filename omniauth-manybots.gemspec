@@ -1,17 +1,17 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "omniauth-manybots/version"
+require "omniauth-googleplus/version"
 
 Gem::Specification.new do |s|
-  s.name        = "omniauth-manybots"
+  s.name        = "omniauth-googleplus"
   s.version     = Omniauth::Manybots::VERSION
   s.authors     = ["Niko Roberts"]
-  s.email       = ["niko@manybots.com"]
-  s.homepage    = "https://github.com/NikoRoberts/omniauth-manybots"
-  s.summary     = %q{OmniAuth strategy for Manybots}
-  s.description = %q{OmniAuth strategy for Manybots}
+  s.email       = ["niko@tasboa.com"]
+  s.homepage    = "https://github.com/tasboa/omniauth-googleplus"
+  s.summary     = %q{OmniAuth strategy for Google Plus}
+  s.description = %q{OmniAuth strategy for Google Plus}
 
-  s.rubyforge_project = "omniauth-manybots"
+  s.rubyforge_project = "omniauth-googleplus"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
